@@ -1,7 +1,6 @@
-#include <stdbool.h>
+#include <unistd.h>
 #include "input.h"
 #include "render.h"
-#include <curses.h>
 
 int main(int argc, char** argv)
 {
