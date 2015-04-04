@@ -28,5 +28,26 @@ void input_get(InputState* input)
 		c = getchar();
 	}
 	input->quit = (c == 'q');
+
+	if (c == 'w')
+	{
+		input->moveDirection = DIRECTION_UP;
+	}
+	else if (c == 's')
+	{
+		input->moveDirection = DIRECTION_DOWN;
+	}
+	else if (c == 'a')
+	{
+		input->moveDirection = DIRECTION_LEFT;
+	}
+	else if (c == 'd')
+	{
+		input->moveDirection = DIRECTION_RIGHT;
+	}
+	else
+	{
+		input->moveDirection = DIRECTION_NONE;
+	}
 }
 

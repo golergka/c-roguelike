@@ -3,8 +3,18 @@
 
 #include <stdbool.h>
 
+typedef enum
+{
+	DIRECTION_NONE = 0,
+	DIRECTION_UP,
+	DIRECTION_DOWN,
+	DIRECTION_LEFT,
+	DIRECTION_RIGHT
+} Direction;
+
 typedef struct {
-	bool quit;
+	bool		quit;
+	Direction	moveDirection;
 } InputState;
 
 void input_init();
