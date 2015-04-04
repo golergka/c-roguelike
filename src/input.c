@@ -45,9 +45,9 @@ void input_get(InputState* input)
 	{
 		input->moveDirection = DIRECTION_RIGHT;
 	}
-	else
-	{
-		input->moveDirection = DIRECTION_NONE;
-	}
 }
 
+void input_clear(InputState* input)
+{
+	input->moveDirection = DIRECTION_NONE;
+}

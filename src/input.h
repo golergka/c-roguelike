@@ -21,4 +21,6 @@ void input_init();
 
 void input_get(InputState* input);
 
+void input_clear(InputState* input);
+
 #endif // __INPUT_H__
