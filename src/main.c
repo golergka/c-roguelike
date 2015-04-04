@@ -18,7 +18,9 @@ const useconds_t main_sleep		= 1000;
 
 static void* input_loop(void* arg)
 {
+	pthread_mutex_lock(&input_mutex);
 	input_init();
+	pthread_mutex_unlock(&input_mutex);
 	while(true)
 	{
 		pthread_mutex_lock(&input_mutex);
@@ -30,6 +32,9 @@ static void* input_loop(void* arg)
 
 static void* game_loop(void* arg)
 {
+	pthread_mutex_lock(&game_mutex);
+	game_init(&game);
+	pthread_mutex_unlock(&game_mutex);
 	while(true)
 	{
 		pthread_mutex_lock(&input_mutex);

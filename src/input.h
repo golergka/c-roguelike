@@ -3,8 +3,7 @@
 
 #include <stdbool.h>
 
-typedef enum
-{
+typedef enum {
 	DIRECTION_NONE = 0,
 	DIRECTION_UP,
 	DIRECTION_DOWN,
