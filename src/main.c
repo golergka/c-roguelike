@@ -11,6 +11,11 @@ static GameState game;
 static pthread_mutex_t input_mutex;
 static pthread_mutex_t game_mutex;
 
+const useconds_t input_sleep	= 1000;
+const useconds_t game_sleep		= 1000;
+const useconds_t render_sleep	= 1000;
+const useconds_t main_sleep		= 1000;
+
 static void* input_loop(void* arg)
 {
 	input_init();
@@ -19,6 +24,7 @@ static void* input_loop(void* arg)
 		pthread_mutex_lock(&input_mutex);
 		input_get(&input);
 		pthread_mutex_unlock(&input_mutex);
+		usleep(input_sleep);
 	}
 }
 
@@ -32,6 +38,7 @@ static void* game_loop(void* arg)
 		input_clear(&input);
 		pthread_mutex_unlock(&game_mutex);
 		pthread_mutex_unlock(&input_mutex);
+		usleep(game_sleep);
 	}
 }
 
@@ -43,6 +50,7 @@ static void* render_loop(void* arg)
 		pthread_mutex_lock(&game_mutex);
 		render(&game);
 		pthread_mutex_unlock(&game_mutex);
+		usleep(render_sleep);
 	}
 }
 
@@ -130,7 +138,10 @@ int main(int argc, char** argv)
 	}
 
 	// Let the threads run
-	while(!input.quit) { }
+	while(!input.quit)
+	{
+		usleep(main_sleep);
+	}
 
 	// Quit the game, finish the threads
 	return pthread_cancel(input_thread) &
