@@ -2,6 +2,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <curses.h>
 #include "input.h"
 
 void input_init()

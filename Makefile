@@ -2,7 +2,7 @@
 C 		= clang
 CFLAGS 	= --std=c99
 LFLAGS 	= $(SYSTEMC_LIBRARY_DIRS)
-LIBS 	= -lm
+LIBS 	= -lm -lcurses
 
 # Folders
 DEST_DIR 	= bin

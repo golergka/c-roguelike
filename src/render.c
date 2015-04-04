@@ -1,35 +1,29 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
+#include <curses.h>
+#include <string.h>
 #include "render.h"
 
-void clear_screen()
+void render_init()
 {
-	rewind(stdout);
-	printf("\033[2J\033[1;1H");
-}
-
-void render_line(int c, int length)
-{
-	for(int x = 0; x < length; x++)
-	{
-		putchar(c);
-	}
+	initscr();
+	cbreak();
+	noecho();
+	nonl();
+	intrflush(stdscr, FALSE);
+	keypad(stdscr, TRUE);
 }
 
 void render()
 {
-	clear_screen();
+	erase();
+	int row,col;
+	getmaxyx(stdscr,row,col);
+	char mesg[] = "Render screen";
+	mvprintw(row/2,(col-strlen(mesg))/2, "%s", mesg);
+	mvprintw(row-2,0,"%d rows %d columns\n", row,col);
+	refresh();
 
-	struct winsize w;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	render_line('+', w.ws_col);
-	for(int y = 1; y < w.ws_row - 1; y++)
-	{
-		putchar('+');
-		render_line(' ', w.ws_col - 2);
-		putchar('+');
-	}
-	render_line('+', w.ws_col);
 	usleep(1);
 }
