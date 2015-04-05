@@ -44,14 +44,17 @@ void render(GameState* game)
 	erase();
 	int row,col;
 	getmaxyx(stdscr,row,col);
+
 	// Player position in the first row
 	mvprintw(
 			0,
 			0,
 			"Player position: x=%d y=%d", 
-			game->playerPosition.x,
-			game->playerPosition.y
+			game->player.position.x,
+			game->player.position.y
 		);
+
+	// Render level
 	for(int y = 1; y < row - 1; y++)
 	{
 		for(int x = 0; x < col; x++)
@@ -60,11 +63,28 @@ void render(GameState* game)
 		}
 	}
 
+	// Render enemies
+	for(size_t i = 0; i < GAME_ENEMIES; i++)
+	{
+		if (game->enemies[i].spawned)
+		{
+			mvaddch(
+					game->enemies[i].position.y,
+					game->enemies[i].position.x,
+					game->enemies[i].hit_points > 0 ?
+						'$' : 
+						'^'
+				);
+		}
+	}
+
+	// Render player
 	mvaddch(
-			game->playerPosition.y,
-			game->playerPosition.x,
+			game->player.position.y,
+			game->player.position.x,
 			'@'
 		);
+
 	// Screen size in the last row
 	mvprintw(
 			row-1,

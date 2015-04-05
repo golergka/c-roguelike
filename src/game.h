@@ -1,6 +1,7 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include <stdbool.h>
 #include "input.h"
 
 typedef int Coordinate;
@@ -23,7 +24,21 @@ typedef struct {
 } Level;
 
 typedef struct {
-	Position	playerPosition;
+	Position	position;
+	int			hit_points;
+	bool		spawned;
+} Enemy;
+
+typedef struct {
+	Position	position;
+	int			hit_points;
+} Player;
+
+#define GAME_ENEMIES 10
+
+typedef struct {
+	Player		player;
+	Enemy		enemies[GAME_ENEMIES];
 	Level		level;
 } GameState;
 
