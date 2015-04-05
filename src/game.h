@@ -31,7 +31,8 @@ typedef struct {
 
 typedef struct {
 	Position	position;
-	int			hit_points;
+	int			hit_points_current;
+	int			hit_points_max;
 } Player;
 
 #define GAME_ENEMIES 10

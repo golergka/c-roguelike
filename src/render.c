@@ -85,13 +85,13 @@ void render(GameState* game)
 			'@'
 		);
 
-	// Screen size in the last row
+	// Status bar
 	mvprintw(
 			row-1,
 			0,
-			"%d rows %d columns\n", 
-			row, 
-			col
+			"HP: %d/%d",
+			game->player.hit_points_current,
+			game->player.hit_points_max
 		);
 	refresh();
 }

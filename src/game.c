@@ -3,6 +3,10 @@
 
 void game_init(GameState* game)
 {
+	// Initialize player
+	game->player.hit_points_current = 10;
+	game->player.hit_points_max = 10;
+
 	// Generate level
 	game->player.position.x = LEVEL_SIZE/2;
 	game->player.position.y = LEVEL_SIZE/2;
@@ -133,6 +137,7 @@ void game_process_input(InputState* input, GameState* game)
 			damage_enemy(target, 1);
 		}
 	}
+	
 	// Move enemies
 	{
 		for(size_t i = 0; i < GAME_ENEMIES; i++)
@@ -148,6 +153,10 @@ void game_process_input(InputState* input, GameState* game)
 				if (can_pass_position(game, &new_position))
 				{
 					current->position = new_position;
+				}
+				else if (are_equal(&game->player.position, &new_position))
+				{
+					game->player.hit_points_current--;
 				}
 			}
 		}
