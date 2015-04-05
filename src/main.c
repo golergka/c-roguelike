@@ -39,8 +39,11 @@ static void* game_loop(void* arg)
 	{
 		pthread_mutex_lock(&input_mutex);
 		pthread_mutex_lock(&game_mutex);
-		game_process_input(&input, &game);
-		input_clear(&input);
+		if (input_is_dirty(&input))
+		{
+			game_process_input(&input, &game);
+			input_clear(&input);
+		}
 		pthread_mutex_unlock(&game_mutex);
 		pthread_mutex_unlock(&input_mutex);
 		usleep(game_sleep);

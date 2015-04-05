@@ -76,7 +76,8 @@ bool can_pass_position(GameState* game, Position* pos)
 	Enemy* enemy = try_get_enemy(game, pos);
 	if (enemy == NULL)
 	{
-		return game->level.tiles[pos->x][pos->y] == LEVEL_TILE_FREE;
+		return !are_equal(&game->player.position, pos)
+			&& game->level.tiles[pos->x][pos->y] == LEVEL_TILE_FREE;
 	}
 	else
 	{
@@ -101,7 +102,7 @@ void game_process_input(InputState* input, GameState* game)
 	// Move player
 	{
 		Position new_position = game->player.position;
-		switch(input->moveDirection)
+		switch(input->move_direction)
 		{
 			case(DIRECTION_DOWN):
 				new_position.y++;
@@ -130,6 +131,25 @@ void game_process_input(InputState* input, GameState* game)
 		else if ((target = try_get_enemy(game, &new_position)) != NULL)
 		{
 			damage_enemy(target, 1);
+		}
+	}
+	// Move enemies
+	{
+		for(size_t i = 0; i < GAME_ENEMIES; i++)
+		{
+			Enemy* current = &game->enemies[i];
+
+			if (current->spawned &&
+				current->hit_points > 0)
+			{
+				Position new_position = current->position;
+				new_position.x += rand() % 3 - 1;
+				new_position.y += rand() % 3 - 1;
+				if (can_pass_position(game, &new_position))
+				{
+					current->position = new_position;
+				}
+			}
 		}
 	}
 }

@@ -13,7 +13,7 @@ typedef enum {
 
 typedef struct {
 	bool		quit;
-	Direction	moveDirection;
+	Direction	move_direction;
 } InputState;
 
 void input_init();
@@ -21,5 +21,7 @@ void input_init();
 void input_get(InputState* input);
 
 void input_clear(InputState* input);
+
+bool input_is_dirty(InputState* input);
 
 #endif // __INPUT_H__

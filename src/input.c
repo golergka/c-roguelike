@@ -31,23 +31,28 @@ void input_get(InputState* input)
 
 	if (c == 'w')
 	{
-		input->moveDirection = DIRECTION_UP;
+		input->move_direction = DIRECTION_UP;
 	}
 	else if (c == 's')
 	{
-		input->moveDirection = DIRECTION_DOWN;
+		input->move_direction = DIRECTION_DOWN;
 	}
 	else if (c == 'a')
 	{
-		input->moveDirection = DIRECTION_LEFT;
+		input->move_direction = DIRECTION_LEFT;
 	}
 	else if (c == 'd')
 	{
-		input->moveDirection = DIRECTION_RIGHT;
+		input->move_direction = DIRECTION_RIGHT;
 	}
 }
 
 void input_clear(InputState* input)
 {
-	input->moveDirection = DIRECTION_NONE;
+	input->move_direction = DIRECTION_NONE;
+}
+
+bool input_is_dirty(InputState* input)
+{
+	return input->quit || (input->move_direction != DIRECTION_NONE);
 }
