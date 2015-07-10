@@ -11,9 +11,9 @@ void game_init(GameState* game)
 	game->player.position.x = LEVEL_SIZE/2;
 	game->player.position.y = LEVEL_SIZE/2;
 	int room_size = 10;
-	for(size_t y = 0; y < LEVEL_SIZE; y++)
+	for(int y = 0; y < LEVEL_SIZE; y++)
 	{
-		for(size_t x = 0; x < LEVEL_SIZE; x++)
+		for(int x = 0; x < LEVEL_SIZE; x++)
 		{
 			int distance_x = abs(game->player.position.x - x);
 			int distance_y = abs(game->player.position.y - y);
