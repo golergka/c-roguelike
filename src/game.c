@@ -101,12 +101,10 @@ void damage_enemy(Enemy* enemy, int damage)
 	}
 }
 
-void game_process_input(InputState* input, GameState* game)
+void move_player(GameState* game, Direction move_direction)
 {
-	// Move player
-	{
 		Position new_position = game->player.position;
-		switch(input->move_direction)
+		switch(move_direction)
 		{
 			case(DIRECTION_DOWN):
 				new_position.y++;
@@ -136,7 +134,11 @@ void game_process_input(InputState* input, GameState* game)
 		{
 			damage_enemy(target, 1);
 		}
-	}
+}
+
+void game_process_input(InputState* input, GameState* game)
+{
+	move_player(game, input->move_direction);
 	
 	// Move enemies
 	{
